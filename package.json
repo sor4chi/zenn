@@ -6,12 +6,29 @@
   "scripts": {
     "preview": "zenn preview",
     "new:article": "zenn new:article",
-    "new:book": "zenn new:book"
+    "new:book": "zenn new:book",
+    "textlint": "textlint --config .textlintrc **/*.md",
+    "markdownlint": "markdownlint **/*.md",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.md": [
+      "markdownlint --fix",
+      "textlint"
+    ]
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "zenn-cli": "^0.1.117"
+  },
+  "devDependencies": {
+    "lint-staged": "^13.0.3",
+    "husky": "^8.0.1",
+    "markdownlint-cli": "^0.32.2",
+    "textlint": "^12.2.1",
+    "textlint-filter-rule-allowlist": "^4.0.0",
+    "textlint-rule-preset-ja-technical-writing": "^7.0.0"
   }
 }
