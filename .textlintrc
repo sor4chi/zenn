@@ -1,10 +1,7 @@
 {
   "rules": {
-    "preset-ja-technical-writing": true
+    "preset-ja-technical-writing": true,
+    "ja-technical-writing/no-exclamation-question-mark": false
   },
-  "filters": {
-    "allowlist": {
-      "allow": []
-    }
-  }
+  "filters": {}
 }
