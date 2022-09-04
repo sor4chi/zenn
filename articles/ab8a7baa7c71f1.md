@@ -77,4 +77,4 @@ typedPush("hogehoge"); // NG (Type '"hogehoge"' is not assignable to type 'Route
 
 Routerの第一引数の`Location`型は`name`の型が`string`なので、`RouteName`でdeclareしたほうが賢明...？
 
-以上しょぼすぎるけど割と実務で使いそうなやつでした。
+以上しょぼすぎるけど割と実務で使えそうなやつでした。
