@@ -3019,10 +3019,10 @@ yaml@^2.1.1:
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.1.1.tgz#1e06fb4ca46e60d9da07e4f786ea370ed3c3cfec"
   integrity sha512-o96x3OPo8GjWeSLF+wOAbrPfhFOGY0W00GNaxCDv+9hkcDJEnev1yh8S7pgHF0ik6zc8sQLuL8hjHjJULZp8bw==
 
-zenn-cli@^0.1.117:
-  version "0.1.117"
-  resolved "https://registry.yarnpkg.com/zenn-cli/-/zenn-cli-0.1.117.tgz#5c0c33ae75fbbc986e05656a296d543cf4df1c55"
-  integrity sha512-1IvPRwB+cTRl3R+5MgdFm6h++c3xzRTzrtxX5KRq2M7+AB2dF1hWBqwTS8n+u/edkTZxhXQJi94Uw8cbMdXGfg==
+zenn-cli@^0.1.121:
+  version "0.1.121"
+  resolved "https://registry.yarnpkg.com/zenn-cli/-/zenn-cli-0.1.121.tgz#5e96e20a42aaad3f02b26f0bd148d29841806587"
+  integrity sha512-u17cJ6dOlqMB3lNzdK6br4QHBKFa5eq7LM9q0/g2nhJqiwzmjONzwQAo43CpBoL8RQ4abm97vI2Q3clwgema/w==
 
 zlibjs@^0.3.1:
   version "0.3.1"
