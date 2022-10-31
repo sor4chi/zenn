@@ -7,7 +7,7 @@ published: true
 ---
 
 # 結論
-  
+
 ## 原案
 
 ```ts
@@ -35,8 +35,8 @@ const ROUTE_NAMES = {
   HOME: "home",
   ABOUT: "about",
   BLOG: {
-    LIST: "Blog.list",
-    DETAIL: "Blog.Detail",
+    LIST: "blog.list",
+    DETAIL: "blog.detail",
   }
 } as const;
 
