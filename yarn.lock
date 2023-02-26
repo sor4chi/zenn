@@ -2420,6 +2420,11 @@ textlint-filter-rule-allowlist@^4.0.0:
     "@textlint/regexp-string-matcher" "^1.1.0"
     js-yaml "^4.1.0"
 
+textlint-filter-rule-comments@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/textlint-filter-rule-comments/-/textlint-filter-rule-comments-1.2.2.tgz#3a72c494994e068e0e4aaad0f24ea7cfe338503a"
+  integrity sha512-AtyxreCPb3Hq/bd6Qd6szY1OGgnW34LOjQXAHzE8NoXbTUudQqALPdRe+hvRsf81rnmGLxBiCUXZbnbpIseFyw==
+
 textlint-rule-helper@2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/textlint-rule-helper/-/textlint-rule-helper-2.0.1.tgz"
@@ -3019,10 +3024,10 @@ yaml@^2.1.1:
   resolved "https://registry.npmjs.org/yaml/-/yaml-2.1.1.tgz"
   integrity sha512-o96x3OPo8GjWeSLF+wOAbrPfhFOGY0W00GNaxCDv+9hkcDJEnev1yh8S7pgHF0ik6zc8sQLuL8hjHjJULZp8bw==
 
-zenn-cli@^0.1.134:
-  version "0.1.134"
-  resolved "https://registry.yarnpkg.com/zenn-cli/-/zenn-cli-0.1.134.tgz#834d6323e5e34cb7b7d616bb05f27be7dd83da06"
-  integrity sha512-DOo5MZbGQagO0S2l5jvWtTgf6+OvHjrK3v1YE4SzeNldtHJ1FV+hafxu41+yIxtG/T0iqB6N/+kl2nY7rqJUYQ==
+zenn-cli@^0.1.140:
+  version "0.1.140"
+  resolved "https://registry.yarnpkg.com/zenn-cli/-/zenn-cli-0.1.140.tgz#8b6ef2a8d1d03b9ea31f97256ff852630f2a6674"
+  integrity sha512-fcMxd5DHeZeaVkeD1qUoKOgE3gNf1E8+Yh8Kb4hCVIiiwuPR4SOI0uCcno7aeD6LH7OSSymzn0clEdx/QrUhlQ==
 
 zlibjs@^0.3.1:
   version "0.3.1"
