@@ -47,8 +47,8 @@ devでパッケージを平行に起動するために、turborepoを設定し�
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
-      "dev": {
-          "dependsOn": ["^dev"]
+    "dev": {
+      "dependsOn": ["^dev"]
     }
   }
 }
@@ -98,7 +98,7 @@ monorepo管理のため、`package.json`の`name`フィールドを`gateway`と�
 ```diff toml:workers/gateway/wrangler.toml
 - name = "my-app"
 + name = "gateway"
-compatibility_date = "2023-01-01"
+  compatibility_date = "2023-01-01"
 
 + [dev]
 + port = 1234
@@ -124,16 +124,16 @@ gatewayをコピペして、`private-service`ディレクトリを作成して`p
 ```diff toml:workers/private-service/wrangler.toml
 - name = "gateway"
 + name = "private-service"
-compatibility_date = "2023-01-01"
+  compatibility_date = "2023-01-01"
 
-[dev]
+  [dev]
 - port = 1234
 + port = 1235
 ```
 
 あとは`/`にアクセスしたときのレスポンスをわかりやすいように変えておきます。
 
-```diff ts:workers/private-service/src/index.ts
+```ts:workers/private-service/src/index.ts
 import { Hono } from 'hono'
 
 const app = new Hono()
@@ -169,14 +169,14 @@ export default app
 Service Bindingを設定するために、gatewayの`wrangler.toml`に`services`フィールドを追加します。
 
 ```diff toml:workers/gateway/wrangler.toml
-name = "gateway"
-compatibility_date = "2023-01-01"
+  name = "gateway"
+  compatibility_date = "2023-01-01"
 + services = [
 +     { binding = "PRIVATE_SERVICE", service = "private-service" }
 + ]
 
-[dev]
-port = 1234
+  [dev]
+  port = 1234
 ```
 
 このとき、`service`にはバインド先サービスの`wrangler.toml`の`name`フィールドに設定した値を指定します。
@@ -187,7 +187,7 @@ HonoではService Bindingを型安全に使うことができるので、それ�
 https://hono.dev/getting-started/cloudflare-workers#bindings
 
 ```diff ts:workers/gateway/src/index.ts
-import { Hono } from 'hono'
+  import { Hono } from 'hono'
 
 + type Bindings = {
 +   PRIVATE_SERVICE: Fetcher;
@@ -196,9 +196,9 @@ import { Hono } from 'hono'
 - const app = new Hono()
 + const app = new Hono<{ Bindings: Bindings }>()
 
-app.get('/', (c) => c.text('Hello Hono!'))
+  app.get('/', (c) => c.text('Hello Hono!'))
 
-export default app
+  export default app
 ```
 
 `Bindings`という型を定義して、`Hono`のGenericsに渡します。
@@ -209,27 +209,27 @@ export default app
 `/private`にアクセスしたら、`private-service`に転送させてレスポンスをパススルーするようにします。
 
 ```diff ts:workers/gateway/src/index.ts
-import { Hono } from 'hono'
+  import { Hono } from 'hono'
 
-type Bindings = {
-  PRIVATE_SERVICE: Fetcher;
-};
+  type Bindings = {
+    PRIVATE_SERVICE: Fetcher;
+  };
 
-const app = new Hono<{ Bindings: Bindings }>()
+  const app = new Hono<{ Bindings: Bindings }>()
 
-app.get('/', (c) => c.text('Hello Hono!'))
+  app.get('/', (c) => c.text('Hello Hono!'))
 + app.get('/private/*', async (c) => {
 +   const res = await c.env.PRIVATE_SERVICE.fetch(c.req.raw)
 +   return res
 + })
 
-export default app
+  export default app
 ```
 
 `/private`のリクエストがそのまま`private-service`に転送されるので、`/private`にアクセスすると Hello Private Service! と返ってくるようにサブパスに配置します。
 
 ```diff ts:workers/private-service/src/index.ts
-import { Hono } from 'hono'
+  import { Hono } from 'hono'
 
 - const app = new Hono()
 + const app = new Hono().basePath('/private')
@@ -253,27 +253,27 @@ INTERNAL_TOKEN = "THIS_IS_A_SECRET_TOKEN_FOR_INTERNAL_REQUEST"
 `gateway`側で`private-service`にアクセスするとき、このトークンを付与します。
 
 ```diff ts:workers/gateway/src/index.ts
-import { Hono } from 'hono'
+  import { Hono } from 'hono'
 
-type Bindings = {
-  PRIVATE_SERVICE: Fetcher;
+  type Bindings = {
+    PRIVATE_SERVICE: Fetcher;
 + INTERNAL_TOKEN: string;
-};
+  };
 
-const app = new Hono<{ Bindings: Bindings }>()
+  const app = new Hono<{ Bindings: Bindings }>()
 
-app.get('/', (c) => c.text('Hello Hono!'))
-app.get('/private/*', async (c) => {
+  app.get('/', (c) => c.text('Hello Hono!'))
+  app.get('/private/*', async (c) => {
 -   const res = await c.env.PRIVATE_SERVICE.fetch(c.req.raw)
 +   const res = await c.env.PRIVATE_SERVICE.fetch(c.req.raw, {
 +     headers: {
 +       'x-custom-token': c.env.INTERNAL_TOKEN,
 +     },
 +   })
-  return res
-})
+    return res
+  })
 
-export default app
+  export default app
 ```
 
 ### Private Service側でトークンを検証する
@@ -281,7 +281,7 @@ export default app
 `private-service`側で、`gateway`からのアクセスであることを検証します。
 
 ```diff ts:workers/private-service/src/index.ts
-import { Hono } from 'hono'
+  import { Hono } from 'hono'
 
 + type Bindings = {
 +   INTERNAL_TOKEN: string;
