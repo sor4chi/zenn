@@ -74,9 +74,8 @@ pnpm install
 
 このサービスは唯一外部に露出させ、他の内部プライベートサービスと通信するためのgatewayアプリです。
 create honoというHonoのテンプレートプロジェクトを生成できるCLIツールを使います。
-<!-- textlint-disable -->
+
 `workers`ディレクトリに移動して
-<!-- textlint-enable -->
 
 ```bash
 npm create hono@latest gateway
