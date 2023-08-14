@@ -257,7 +257,7 @@ INTERNAL_TOKEN = "THIS_IS_A_SECRET_TOKEN_FOR_INTERNAL_REQUEST"
 
   type Bindings = {
     PRIVATE_SERVICE: Fetcher;
-+ INTERNAL_TOKEN: string;
++   INTERNAL_TOKEN: string;
   };
 
   const app = new Hono<{ Bindings: Bindings }>()
