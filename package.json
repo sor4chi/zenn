@@ -8,12 +8,13 @@
     "new:article": "zenn new:article",
     "new:book": "zenn new:book",
     "textlint": "textlint --config .textlintrc **/*.md",
+    "textlint:fix": "textlint --fix --config .textlintrc **/*.md",
     "markdownlint": "markdownlint **/*.md",
     "prepare": "husky install"
   },
   "lint-staged": {
     "*.md": [
-      "markdownlint --fix",
+      "markdownlint",
       "textlint"
     ]
   },
@@ -30,6 +31,7 @@
     "textlint": "^12.2.1",
     "textlint-filter-rule-allowlist": "^4.0.0",
     "textlint-filter-rule-comments": "^1.2.2",
+    "textlint-rule-preset-ja-spacing": "^2.3.0",
     "textlint-rule-preset-ja-technical-writing": "^7.0.0"
   }
 }

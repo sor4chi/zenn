@@ -3,7 +3,16 @@
     "preset-ja-technical-writing": true,
     "ja-technical-writing/no-exclamation-question-mark": false, // ガチの技術文書ではないので、感嘆符と疑問符を許可する
     "ja-technical-writing/ja-no-mixed-period": false, // ガチの技術文書ではないので、読点以外の文末を許可する
-    "ja-technical-writing/ja-no-weak-phrase": false // ガチの技術文書ではないので、弱い表現(〜かもしれないなど)を許可する
+    "ja-technical-writing/ja-no-weak-phrase": false, // ガチの技術文書ではないので、弱い表現(〜かもしれないなど)を許可する
+    "preset-ja-spacing": {
+      "ja-space-between-half-and-full-width": {
+          "space": "always"
+      },
+      "ja-space-around-code": {
+          "before": true,
+          "after": true
+      }
+    }
   },
   "filters": {
     "allowlist": {
