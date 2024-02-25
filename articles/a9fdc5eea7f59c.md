@@ -10,7 +10,7 @@ published: true
 
 https://qiita.com/advent-calendar/2023/hono
 
-最近、Cloudflare Workers や Fastly Compute@Edge などのEdge Computingのサービスで、より自由で柔軟なキャッシュができるようになりました、ね。
+最近、Cloudflare Workers や Fastly Compute@Edge などの Edge Computing のサービスで、より自由で柔軟なキャッシュができるようになりました、ね。
 SSG そもそもいらないんじゃないかななんて思っています。
 
 今回は、Next.js の文脈でよく聞くような ISR というキャッシュ戦略に似たようなものを Hono + Cloudflare Workers で実現してみます。
@@ -35,11 +35,11 @@ ISR の代表的な挙動として、
 Cloudflare Workers は基本 `fetch` ハンドラが終了すると (response が返されると) その後の処理が行われません。
 （後述の比較動画を見ていただくとわかります）
 
-`context.waitUntil` を使うことで、`fetch` ハンドラが終了してもその後の処理を30秒まで実行できます。
+`context.waitUntil` を使うことで、`fetch` ハンドラが終了してもその後の処理を 30 秒まで実行できます。
 
 https://developers.cloudflare.com/workers/platform/limits/#duration
 
-Hono ではこのAPIを `c.executionCtx.waitUntil` から使えます。
+Hono ではこの API を `c.executionCtx.waitUntil` から使えます。
 
 ```ts
 app.get("/no-wait-until", async (c) => {
@@ -68,7 +68,7 @@ app.get("/wait-until", async (c) => {
 実際にこの動画のように、`waitUntil` を使わない場合は `fetch` ハンドラが終了するとその後の処理が行われません。
 一方で `waitUntil` を使うと `fetch` ハンドラが終了しても渡された Promise が resolve されるまで続きます。
 
-(Gifに変換した関係で1秒以上待っているように見えますが、実際は1秒です)
+(Gif に変換した関係で 1 秒以上待っているように見えますが、実際は 1 秒です)
 
 ## キャッシュをKVに保存する
 
@@ -93,8 +93,8 @@ interface CacheResult {
 }
 ```
 
-`KV` には metadata という付加情報を保存できるので、HTML文字列と一緒に有効期限を保存します。そのために、`CacheMetadata` という型を定義します。
-`KV` 自体にも [expiring keys](https://developers.cloudflare.com/kv/api/write-key-value-pairs/#expiring-keys) を設定する機能があるのですが、これを使うと`KV` に保存されたデータが有効期限切れとなったときに、`KV` からデータが削除されてしまいます。今回は古いキャッシュを返すという挙動を実現するために、独自で有効期限を管理します。
+`KV` には metadata という付加情報を保存できるので、HTML 文字列と一緒に有効期限を保存します。そのために、`CacheMetadata` という型を定義します。
+`KV` 自体にも [expiring keys](https://developers.cloudflare.com/kv/api/write-key-value-pairs/#expiring-keys) を設定する機能があるのですが、これを使うと `KV` に保存されたデータが有効期限切れとなったときに、`KV` からデータが削除されてしまいます。今回は古いキャッシュを返すという挙動を実現するために、独自で有効期限を管理します。
 また、`KV` から取得したキャッシュが有効期限切れかどうかを判定するために、`CacheResult` という型を定義します。
 
 次に、キャッシュを取得する関数を定義します。
@@ -165,7 +165,7 @@ app.get("/*", async (c) => {
 });
 ```
 
-環境変数 `ORIGIN` には、キャッシュする対象のURLを指定します。
+環境変数 `ORIGIN` には、キャッシュする対象の URL を指定します。
 前述の `c.executionCtx.waitUntil` を使って、キャッシュが有効期限切れの場合は、`createCache` を裏で再生成するようにします。
 
 これでどれだけ SSR に時間がかかるページでも、ほんとに初回のアクセス（キャッシュ初回生成）以外は完全にキャッシュが返されるようになります。

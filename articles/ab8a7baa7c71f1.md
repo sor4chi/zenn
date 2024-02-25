@@ -26,9 +26,9 @@ type ObjectKeyDeep<T> = T extends Record<string, infer U> ? ObjectKeyDeep<U> : T
 
 ## RouterやStoreなどの文字列定数をキーとして使う関数を型安全にする
 
-（Vueの例です）
+（Vue の例です）
 
-- pushのラップ関数を作る
+- push のラップ関数を作る
 
 ```ts:router.ts
 const ROUTE_NAMES = {
@@ -75,6 +75,6 @@ typedPush("blog.list"); // OK
 typedPush("hogehoge"); // NG (Type '"hogehoge"' is not assignable to type 'RouteName'.)
 ```
 
-Routerの第一引数の`Location`型は`name`の型が`string`なので、`RouteName`でdeclareしたほうが賢明...？
+Router の第一引数の `Location` 型は `name` の型が `string` なので、`RouteName` で declare したほうが賢明...？
 
 以上しょぼすぎるけど割と実務で使えそうなやつでした。
